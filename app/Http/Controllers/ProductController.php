@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('jwt.verify');
+    }
+
     public function index()
     {
         try {
@@ -18,7 +23,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'success',
-                'data' => $products,
+                'response' => $products,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -36,7 +41,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Data found successfully',
-                'data' => $product,
+                'response' => $product,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -53,7 +58,6 @@ class ProductController extends Controller
             $products = Product::select()
             ->orderByDesc('id');
 
-            // return $request->name;
             if (!empty($request->name)) {
                 $products->NAME($request->name);
             }
@@ -78,7 +82,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // return 'hehehe';
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
             'amount' => 'required|numeric|min:0',
@@ -123,7 +126,6 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // return 'hehehe';
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
             'amount' => 'required|numeric|min:0',
