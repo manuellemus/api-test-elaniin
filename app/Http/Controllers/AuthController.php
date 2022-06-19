@@ -18,8 +18,39 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('jwt.verify', ['except' => ['login','register']]);
+        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Log in",
+     *     tags={"Log in End points"},
+     *      @OA\Parameter(
+     *         description="email for log in is necesary",
+     *         name="email",
+     *         in="query",
+     *         description="Email",
+     *         example="admin@admin.com",
+     *     ),
+     *      @OA\Parameter(
+     *         description="password for log in is necesary",
+     *         name="password",
+     *         in="query",
+     *         @OA\Schema(type="string"),
+     *         description="Password",
+     *         example="12345678",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="success."
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized."
+     *     )
+     * )
+     */
 
     public function login(Request $request)
     {
@@ -49,11 +80,89 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ]);
-
     }
 
-    public function register(Request $request){
-        
+    /**
+     * @OA\Post(
+     *  path="/api/register",
+     *  summary="Register new user",
+     *  tags={"Log in End points"},
+     *      @OA\Parameter(
+     *         description="Enter Name",
+     *         name="name",
+     *         in="query",
+     *         description="name",
+     *         example="admin",
+     *         required = true
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter User Name",
+     *         name="userName",
+     *         in="query",
+     *         description="UserName",
+     *         required = true
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter de Email",
+     *         name="email",
+     *         in="query",
+     *         description="Email",
+     *         example="test@gmail.com",
+     *         required = true
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter User birthDate",
+     *         name="birthDate",
+     *         in="query",
+     *         description="birthDate",
+     *         example="2062-02-26",
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter telephone",
+     *         name="telephone",
+     *         in="query",
+     *         description="telephone",
+     *         example="77553344",
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter password",
+     *         name="password",
+     *         in="query",
+     *         description="password",
+     *         example="12345678",
+     *         required = true
+     *     ),
+     *      @OA\Parameter(
+     *         description="Enter password_confirmation",
+     *         name="password_confirmation",
+     *         in="query",
+     *         description="password_confirmation",
+     *         example="12345678",
+     *         required = true
+     *     ),
+     *      @OA\Response(
+     *         response=200, 
+     *             description="Data save successfully"
+     *      ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized."
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Oops something went wrong."
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Authorization Token not found."
+     *     ),
+     *    security={{ "apiAuth": {} }},
+     * )
+     */
+
+    public function register(Request $request)
+    {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -88,12 +197,60 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *  path="/api/logout/",
+     *  summary="destroy token",
+     *  tags={"Log in End points"},
+     *      @OA\Response(
+     *         response=200, 
+     *             description="Successfully logged out"
+     *      ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized."
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ups, fail request."
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Authorization Token not found."
+     *     ),
+     *    security={{ "apiAuth": {} }},
+     * )
+     */
     public function logout()
     {
         auth()->logout(true);
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /**
+     * @OA\Post(
+     *  path="/api/refresh/",
+     *  summary="refresh token",
+     *  tags={"Log in End points"},
+     *      @OA\Response(
+     *         response=200, 
+     *             description="Return refresh token"
+     *      ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized."
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ups, fail request."
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Authorization Token not found."
+     *     ),
+     *    security={{ "apiAuth": {} }},
+     * )
+     */
     public function refresh()
     {
         if (Auth::user()) {
@@ -105,8 +262,7 @@ class AuthController extends Controller
                     'type' => 'bearer',
                 ]
             ]);
-        } 
-        else {
+        } else {
             return $this->respond([
                 'status' => 'error',
                 'message' => 'Unauthorized',
@@ -115,9 +271,32 @@ class AuthController extends Controller
         }
     }
 
+        /**
+     * @OA\Get(
+     *  path="/api/user/",
+     *  summary="return user authenticated ",
+     *  tags={"Log in End points"},
+     *      @OA\Response(
+     *         response=200, 
+     *             description="Return user authenticated"
+     *      ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized."
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ups, fail request."
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Authorization Token not found."
+     *     ),
+     *    security={{ "apiAuth": {} }},
+     * )
+     */
     public function getAuthenticatedUser()
     {
         return response()->json(auth()->user());
     }
-
 }

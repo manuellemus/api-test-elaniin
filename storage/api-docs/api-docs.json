@@ -1,0 +1,725 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Elaniin",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Log in End points"
+                ],
+                "summary": "Log in",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "example": "admin@admin.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "12345678"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success."
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Log in End points"
+                ],
+                "summary": "Register new user",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "example": "admin"
+                    },
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "UserName",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "example": "test@gmail.com"
+                    },
+                    {
+                        "name": "birthDate",
+                        "in": "query",
+                        "description": "birthDate",
+                        "example": "2062-02-26"
+                    },
+                    {
+                        "name": "telephone",
+                        "in": "query",
+                        "description": "telephone",
+                        "example": "77553344"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "example": "12345678"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "password_confirmation",
+                        "required": true,
+                        "example": "12345678"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data save successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Oops something went wrong."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/logout/": {
+            "post": {
+                "tags": [
+                    "Log in End points"
+                ],
+                "summary": "destroy token",
+                "operationId": "0d1472f2c3c9109e6cbf60280872337a",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/refresh/": {
+            "post": {
+                "tags": [
+                    "Log in End points"
+                ],
+                "summary": "refresh token",
+                "operationId": "41fb937c56f3c3687c27626af72e69e5",
+                "responses": {
+                    "200": {
+                        "description": "Return refresh token"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/": {
+            "get": {
+                "tags": [
+                    "Log in End points"
+                ],
+                "summary": "return user authenticated ",
+                "operationId": "9d4b56510a51413fdcba6ff44b97142b",
+                "responses": {
+                    "200": {
+                        "description": "Return user authenticated"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/": {
+            "get": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "Get the list of products",
+                "operationId": "c98ca8808a2163d50d2dab3d7062a432",
+                "responses": {
+                    "200": {
+                        "description": "Return a list of products"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/10": {
+            "get": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "Get One product by id",
+                "operationId": "0f0f7b99813f6e997e3be18aad8d41cc",
+                "responses": {
+                    "200": {
+                        "description": "Return one product"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/search": {
+            "post": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "search product by Product Name, Name and SKU",
+                "operationId": "42bad88497a6972707ac7672fd5eb6e3",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "product Name"
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "SKU of product"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return one product"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/store": {
+            "post": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "Save Product",
+                "operationId": "90841008e6d2f8cb3655547d2377fb01",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "amount",
+                        "required": true,
+                        "example": "20"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "price",
+                        "required": true,
+                        "example": "40.69"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "example": "loremp ipsum"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "example": "https://via.placeholder.com/640x480.png/000022?text=quis"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data save successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Oops something went wrong."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/update/90": {
+            "put": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "Update Product",
+                "operationId": "8e2282e0038a98071f51f5d7384a1fc6",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "amount",
+                        "required": true,
+                        "example": "20"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "price",
+                        "required": true,
+                        "example": "20"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "example": "loremp ipsum"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "example": "https://via.placeholder.com/640x480.png/000022?text=quis"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data save successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Oops something went wrong."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/7": {
+            "delete": {
+                "tags": [
+                    "Products End points"
+                ],
+                "summary": "Soft Delete One product by id",
+                "operationId": "fd4d33671823c9bbf79d167dcbb57bc1",
+                "responses": {
+                    "204": {
+                        "description": "Data deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/": {
+            "get": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "Get the list of users",
+                "operationId": "da52e0652a921c82fdc0b47e089dab67",
+                "responses": {
+                    "200": {
+                        "description": "Return a list of users"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/11": {
+            "get": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "Get One user by id",
+                "operationId": "66f10addeea12ecbe9120962331bce3d",
+                "responses": {
+                    "200": {
+                        "description": "Return one user"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/search": {
+            "post": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "search user by User Name, Name and Email",
+                "operationId": "2b9592a93af39d4722605952164c926d",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "example": "admin"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "example": "admin@admin.com"
+                    },
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "UserName"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return one user"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/store": {
+            "post": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "Save user",
+                "operationId": "961251cffc8049377e6b206f61f66fc1",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "example": "admin"
+                    },
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "UserName",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "example": "test@gmail.com"
+                    },
+                    {
+                        "name": "birthDate",
+                        "in": "query",
+                        "description": "birthDate",
+                        "example": "2062-02-26"
+                    },
+                    {
+                        "name": "telephone",
+                        "in": "query",
+                        "description": "telephone",
+                        "example": "77553344"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "example": "12345678"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "password_confirmation",
+                        "required": true,
+                        "example": "12345678"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data save successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Oops something went wrong."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/update/9": {
+            "put": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "Update user",
+                "operationId": "9efc7158b6da09d43c950fac49d0cdbf",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "birthDate",
+                        "in": "query",
+                        "description": "birthDate",
+                        "required": true
+                    },
+                    {
+                        "name": "telephone",
+                        "in": "query",
+                        "description": "telephone",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data modify successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Oops something went wrong."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/7": {
+            "delete": {
+                "tags": [
+                    "users End points"
+                ],
+                "summary": "Soft Delete One user by id",
+                "operationId": "ba13470feb7a1d47f8f850b9d59fda41",
+                "responses": {
+                    "204": {
+                        "description": "Data deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Ups, fail request."
+                    },
+                    "default": {
+                        "description": "Authorization Token not found."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

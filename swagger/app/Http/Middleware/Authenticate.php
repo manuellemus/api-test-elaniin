@@ -12,20 +12,9 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    /**
-     * @OA\SecurityScheme(
-     *     type="http",
-     *     description="Login with email and password to get the authentication token",
-     *     name="Token based Based",
-     *     in="header",
-     *     scheme="bearer",
-     *     bearerFormat="JWT",
-     *     securityScheme="apiAuth",
-     * )
-     */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
             return route('login');
         }
     }
