@@ -204,6 +204,34 @@
                 ]
             }
         },
+        "/api/reset-password-request": {
+            "post": {
+                "tags": [
+                    "Reset password"
+                ],
+                "summary": "send token",
+                "operationId": "64e982e651997d4dd94f320b6f79c99f",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check your inbox, we have sent a link to reset email."
+                    },
+                    "500": {
+                        "description": "Email does not exist.."
+                    },
+                    "default": {
+                        "description": "Email does not exist.."
+                    }
+                }
+            }
+        },
         "/api/products/": {
             "get": {
                 "tags": [

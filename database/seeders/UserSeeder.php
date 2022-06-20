@@ -16,10 +16,10 @@ class UserSeeder extends Seeder
     {
         \App\Models\User::factory(10)->create();
         \App\Models\User::factory()->create([
-            'name'  => 'Manuel Lemus',
-            'email' => 'manuellemuslemus23@gmail.com',
+            'name'  => 'admin',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('12345678'),
-            'username'  => 'Manuel Lemus',
+            'username'  => 'administrador',
             'telephone' => '70361911',
             'birthDate' => date('now'),  
         ]);
